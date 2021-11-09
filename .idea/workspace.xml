@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf73746b-7275-4be6-bd20-02b5d7e4ff33" name="Changes" comment="K">
-      <change beforePath="$PROJECT_DIR$/twitter_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitter_data.py" afterDir="false" />
-    </list>
+    <list default="true" id="bf73746b-7275-4be6-bd20-02b5d7e4ff33" name="Changes" comment="K" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,7 +79,7 @@
       <updated>1635885237866</updated>
       <workItem from="1635885239189" duration="1026000" />
       <workItem from="1635892220686" duration="3175000" />
-      <workItem from="1636482011483" duration="4822000" />
+      <workItem from="1636482011483" duration="5833000" />
     </task>
     <servers />
   </component>

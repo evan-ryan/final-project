@@ -18,6 +18,8 @@ cursor = keyword_search
 
 
 tweets = []
+author = []
+retweets = []
 likes = []
 time = []
 
