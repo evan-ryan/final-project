@@ -13,7 +13,7 @@ auth = tweepy.OAuthHandler(api_key, api_secret)
 auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 tweet_count = 1
-keyword_search = tweepy.Cursor(api.search_tweets, q="New York Knicks" , tweet_mode="extended").items(tweet_count)
+keyword_search = tweepy.Cursor(api.search_tweets, q="New York Knicks", tweet_mode="extended").items(tweet_count)
 cursor = keyword_search
 
 
