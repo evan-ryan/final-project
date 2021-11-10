@@ -34,3 +34,4 @@ for i in cursor:
 
 df = pd.DataFrame({'tweets':tweets,'likes':likes,'time':time})
 
+print(df)
