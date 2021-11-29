@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf73746b-7275-4be6-bd20-02b5d7e4ff33" name="Changes" comment="K" />
+    <list default="true" id="bf73746b-7275-4be6-bd20-02b5d7e4ff33" name="Changes" comment="K">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/twitter_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitter_data.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,6 +41,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -81,6 +86,9 @@
       <workItem from="1635892220686" duration="3175000" />
       <workItem from="1636482011483" duration="7306000" />
       <workItem from="1636499619957" duration="2767000" />
+      <workItem from="1636522651841" duration="176000" />
+      <workItem from="1637098025249" duration="4270000" />
+      <workItem from="1638150497009" duration="2912000" />
     </task>
     <servers />
   </component>
