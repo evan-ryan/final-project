@@ -12,7 +12,7 @@ import time
 
 auth = tweepy.OAuthHandler(api_key, api_secret)
 auth.set_access_token(access_token, access_secret)
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 # tweet_count = 1
 # keyword_search = tweepy.Cursor(
 #     api.search_tweets, q="New York Knicks", tweet_mode="extended", result_type="popular"
@@ -55,17 +55,23 @@ while True:
         print(f"{tag.author.screen_name} - {tag.text}")
         tag_id = tag.id
         if tag.in_reply_to_status_id is None and tag.author.id != program_id:
-            auth = tweepy.OAuthHandler(api_key, api_secret)
-            auth.set_access_token(access_token, access_secret)
-            api = tweepy.API(auth)
-            tweet_count = 5
-            word = str(tag.text)
-            keyword_search = tweepy.Cursor(
-                api.search_tweets, q=word, tweet_mode="extended", result_type="popular"
-            ).items(tweet_count)
-            cursor = keyword_search
-            for i in cursor:
-                print(i.full_text)
+            try:
+                auth = tweepy.OAuthHandler(api_key, api_secret)
+                auth.set_access_token(access_token, access_secret)
+                api = tweepy.API(auth, wait_on_rate_limit=True)
+                tweet_count = 5
+                word = str(tag.text)
+                word_slice = word[9:]
+
+                keyword_search = tweepy.Cursor(
+                    api.search_tweets, q=word_slice, tweet_mode="extended", result_type="popular"
+                ).items(tweet_count)
+                cursor = keyword_search
+
+                for i in cursor:
+                    print(i.full_text)
+            except Exception as exc:
+                print(exc)
 
 
 
