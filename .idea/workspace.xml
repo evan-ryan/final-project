@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bf73746b-7275-4be6-bd20-02b5d7e4ff33" name="Changes" comment="K">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/twitter_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitter_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +37,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="20NVsKNpbL2woQ7Gq5lHVhqFiYY" />
   <component name="ProjectViewState">
@@ -99,7 +101,8 @@
       <workItem from="1638150497009" duration="5473000" />
       <workItem from="1638231224482" duration="36000" />
       <workItem from="1638235615048" duration="686000" />
-      <workItem from="1638401864609" duration="4010000" />
+      <workItem from="1638401864609" duration="4801000" />
+      <workItem from="1638490763168" duration="2439000" />
     </task>
     <servers />
   </component>
