@@ -9,6 +9,7 @@ from twitter_api import access_secret
 import tweepy
 import pandas as pd
 import time
+import yweather
 
 auth = tweepy.OAuthHandler(api_key, api_secret)
 auth.set_access_token(access_token, access_secret)
@@ -19,6 +20,19 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 # ).items(tweet_count)
 # cursor = keyword_search
 
+class LocationNumber:
+    def __init__(self, location):
+        self.location = location
+
+    def get_location(self):
+        trends = api.available_trends()
+        trend_locations = {}
+        for i in trends:
+            trend_locations[i['name']] = i['woeid']
+        for k in trend_locations:
+            if k == self.location:
+                woe_id = trend_locations[k]
+        return woe_id
 
 class UrlMaker:
     def __init__(self, id_list):
@@ -31,19 +45,6 @@ class UrlMaker:
         return url_list
 
 
-tweets = []
-author = []
-retweets = []
-likes = []
-tweet_time = []
-urls = []
-
-
-# for i in cursor:
-#     # print(dir(i))
-#     tweets.append(i.full_text)
-#     likes.append(i.favorite_count)
-#     ids.append(i.id)
 
 program_id = int(api.verify_credentials().id_str)
 ids = []
@@ -61,6 +62,7 @@ while True:
                 api = tweepy.API(auth, wait_on_rate_limit=True)
                 tweet_count = 2
                 word = str(tag.text)
+
                 word_slice = word[9:]
 
                 keyword_search = tweepy.Cursor(
@@ -84,3 +86,6 @@ while True:
 
 # url_list = UrlMaker(ids)
 # print(url_list.create())
+
+
+
