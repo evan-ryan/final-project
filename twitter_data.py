@@ -32,6 +32,8 @@ class LocationNumber:
         for k in trend_locations:
             if k == self.location:
                 woe_id = trend_locations[k]
+            else:
+                woe_id = "Sorry Location Not Found"
         return woe_id
 
 class UrlMaker:
