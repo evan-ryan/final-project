@@ -62,21 +62,23 @@ while True:
                 api = tweepy.API(auth, wait_on_rate_limit=True)
                 tweet_count = 2
                 word = str(tag.text)
+                if 'Location:' in word:
+                    print('location found')
+                else:
+                    word_slice = word[9:]
 
-                word_slice = word[9:]
+                    keyword_search = tweepy.Cursor(
+                        api.search_tweets, q=word_slice, tweet_mode="extended", result_type="popular"
+                    ).items(tweet_count)
+                    cursor = keyword_search
 
-                keyword_search = tweepy.Cursor(
-                    api.search_tweets, q=word_slice, tweet_mode="extended", result_type="popular"
-                ).items(tweet_count)
-                cursor = keyword_search
-
-                for i in cursor:
-                    ids.append(i.id)
-                url_list = UrlMaker(ids)
-                links_list = url_list.create()
-                message = '@{} ' + ' \n'.join(links_list)
-                print(message)
-                api.update_status(message.format(tag.author.screen_name), in_reply_to_status_id=tag.id_str)
+                    for i in cursor:
+                        ids.append(i.id)
+                    url_list = UrlMaker(ids)
+                    links_list = url_list.create()
+                    message = '@{} ' + ' \n'.join(links_list)
+                    print(message)
+                    api.update_status(message.format(tag.author.screen_name), in_reply_to_status_id=tag.id_str)
             except Exception as exc:
                 print(exc)
 

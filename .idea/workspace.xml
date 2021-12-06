@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf73746b-7275-4be6-bd20-02b5d7e4ff33" name="Changes" comment="K">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/twitter_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/twitter_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +126,7 @@
       <workItem from="1638401864609" duration="4801000" />
       <workItem from="1638490763168" duration="2509000" />
       <workItem from="1638571382902" duration="15000" />
-      <workItem from="1638746655961" duration="11397000" />
+      <workItem from="1638746655961" duration="11999000" />
     </task>
     <servers />
   </component>
