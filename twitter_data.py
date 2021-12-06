@@ -37,7 +37,7 @@ retweets = []
 likes = []
 tweet_time = []
 urls = []
-ids = []
+
 
 # for i in cursor:
 #     # print(dir(i))
@@ -46,7 +46,7 @@ ids = []
 #     ids.append(i.id)
 
 program_id = int(api.verify_credentials().id_str)
-
+ids = []
 tag_id = 1
 while True:
     mentions = api.mentions_timeline(since_id=tag_id)
@@ -59,7 +59,7 @@ while True:
                 auth = tweepy.OAuthHandler(api_key, api_secret)
                 auth.set_access_token(access_token, access_secret)
                 api = tweepy.API(auth, wait_on_rate_limit=True)
-                tweet_count = 5
+                tweet_count = 2
                 word = str(tag.text)
                 word_slice = word[9:]
 
@@ -69,13 +69,18 @@ while True:
                 cursor = keyword_search
 
                 for i in cursor:
-                    print(i.full_text)
+                    ids.append(i.id)
+                url_list = UrlMaker(ids)
+                links_list = url_list.create()
+                message = '@{} ' + ' \n'.join(links_list)
+                print(message)
+                api.update_status(message.format(tag.author.screen_name), in_reply_to_status_id=tag.id_str)
             except Exception as exc:
                 print(exc)
 
 
 
-    time.sleep(5)
+    time.sleep(10)
 
 # url_list = UrlMaker(ids)
 # print(url_list.create())
