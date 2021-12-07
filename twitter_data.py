@@ -1,4 +1,10 @@
-from twitter_api import api_key
+"""
+Evan Ryan, Zach B, Cuba
+twitter_data.py
+Created: November 2, 2021.
+Updated: December 7, 2021.
+"""
+
 from twitter_api import api_key
 from twitter_api import api_secret
 from twitter_api import access_token
@@ -9,13 +15,26 @@ import pyshorteners
 
 
 class Auth:
+    """
+    Class that uses Twitter api credentials to authenticate to the api
+    """
     def __init__(self, api_key, api_secret, access_token, access_secret):
+        """
+        Class Constructor to set class credentials as class attributes
+        Input: 4 strings which coincide with Twitter api credentials
+        Return: None
+        """
         self.api_key = api_key
         self.api_secret = api_secret
         self.access_token = access_token
         self.access_secret = access_secret
 
     def init(self):
+        """
+        Class method for authenticating based of API credentials
+        Input: Self / Class attributes: Twitter API credentials
+        Return: Returns and Twitter API Object
+        """
         auth = tweepy.OAuthHandler(self.api_key, self.api_secret)
         auth.set_access_token(self.access_token, self.access_secret)
         api = tweepy.API(auth, wait_on_rate_limit=True)
@@ -23,10 +42,23 @@ class Auth:
 
 
 class LocationNumber:
+    """
+    Class for getting the WhereOnEarthID for a location
+    """
     def __init__(self, location):
+        """
+        Class constructor which sets a location to a class attribute
+        Input: String
+        Return: None
+        """
         self.location = location
 
     def get_location(self):
+        """
+        Class method for returning WhereOnEarthID for a location
+        Input: Self / Class attributes: location string
+        Return:
+        """
         trends = api.available_trends()
         trend_locations = {}
         woe_id = "Location not found"
@@ -88,11 +120,12 @@ class Search:
         return key_word_message
 
 
-
 api = Auth(api_key, api_secret, access_token, access_secret).init()
 
 program_id = int(api.verify_credentials().id_str)
 tag_id = 1
+
+
 def main():
     while True:
         mentions = api.mentions_timeline(since_id=tag_id)
@@ -149,6 +182,7 @@ def main():
                     print(exc)
 
     time.sleep(10)
+
 
 if __name__ == "__main__":
     main()
