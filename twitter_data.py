@@ -10,13 +10,26 @@ import pyshorteners
 
 def main():
     class Auth:
+        """
+        Class that uses Twitter api credentials to authenticate to the api
+        """
         def __init__(self, api_key, api_secret, access_token, access_secret):
+            """
+            Class Constructor to set class credentials as class attributes
+            Input: 4 strings which coincide with Twitter api credentials
+            Return: None
+            """
             self.api_key = api_key
             self.api_secret = api_secret
             self.access_token = access_token
             self.access_secret = access_secret
 
         def init(self):
+            """
+            Class method for authenticating based of API credentials
+            Input: Self / Class attributes: Twitter API credentials
+            Return: Returns and Twitter API Object
+            """
             auth = tweepy.OAuthHandler(self.api_key, self.api_secret)
             auth.set_access_token(self.access_token, self.access_secret)
             api = tweepy.API(auth, wait_on_rate_limit=True)
