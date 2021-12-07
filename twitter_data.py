@@ -29,6 +29,7 @@ class LocationNumber:
     def get_location(self):
         trends = api.available_trends()
         trend_locations = {}
+        woe_id = "Location not found"
         for i in trends:
             trend_locations[i["name"]] = i["woeid"]
         for k in trend_locations:
@@ -61,11 +62,14 @@ class Search:
 
     def geotag(self, woe):
         woe_id = LocationNumber(woe).get_location()
-        location_trend = self.api.get_place_trends(woe_id)
-        trend_dict = {}
-        for topic in location_trend[0]["trends"][:tweet_count]:
-            trend_dict[topic["name"]] = topic["url"]
-        message = "@{} " + "\n".join(" / ".join(i) for i in trend_dict.items())
+        if isinstance(woe_id, int):
+            location_trend = self.api.get_place_trends(woe_id)
+            trend_dict = {}
+            for topic in location_trend[0]["trends"][:tweet_count]:
+                trend_dict[topic["name"]] = topic["url"]
+            message = "@{} " + "\n".join(" / ".join(i) for i in trend_dict.items())
+        else:
+            message = "@{} " + woe_id
         return message
 
 
@@ -86,7 +90,7 @@ while True:
                 tweet_count = 2
                 word = str(tag.text)
                 if "Location:" in word:
-                    print("Location Found")
+                    print("Searching for Trends in Location")
                     woe_tweet = word[19:]
                     message = Search(api).geotag(woe_tweet)
                     # woe_id = LocationNumber(woe_tweet).get_location()
@@ -103,8 +107,8 @@ while True:
                     )
 
                 else:
+                    tweet_count = 10
                     word_slice = word[9:]
-
                     keyword_search = tweepy.Cursor(
                         api.search_tweets,
                         q=word_slice,
