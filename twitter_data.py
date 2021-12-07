@@ -34,7 +34,6 @@ class LocationNumber:
         for k in trend_locations:
             if k == self.location:
                 woe_id = trend_locations[k]
-
         return woe_id
 
 
@@ -55,11 +54,23 @@ class UrlMaker:
             short_list.append(shortener.tinyurl.short(i))
         return short_list
 
-class Reply:
-    def __init__(self):
 
-auth = Auth(api_key, api_secret, access_token, access_secret)
-api = auth.init()
+class Search:
+    def __init__(self, auth):
+        self.api = auth
+
+    def geotag(self, woe):
+        woe_id = LocationNumber(woe).get_location()
+        location_trend = self.api.get_place_trends(woe_id)
+        trend_dict = {}
+        for topic in location_trend[0]["trends"][:tweet_count]:
+            trend_dict[topic["name"]] = topic["url"]
+        message = "@{} " + "\n".join(" / ".join(i) for i in trend_dict.items())
+        return message
+
+
+api = Auth(api_key, api_secret, access_token, access_secret).init()
+
 program_id = int(api.verify_credentials().id_str)
 ids = []
 tag_id = 1
@@ -71,22 +82,21 @@ while True:
         tag_id = tag.id
         if tag.in_reply_to_status_id is None and tag.author.id != program_id:
             try:
-                auth = Auth(api_key, api_secret, access_token, access_secret)
-                api = auth.init()
+                api = Auth(api_key, api_secret, access_token, access_secret).init()
                 tweet_count = 2
                 word = str(tag.text)
                 if "Location:" in word:
-                    print("location found")
-                    word_slice = word[19:]
-                    woe_id = LocationNumber(word_slice).get_location()
-                    location_trend = api.get_place_trends(woe_id)
-                    trend_dict = {}
-                    trend_url_list = []
-                    for topic in location_trend[0]["trends"][:tweet_count]:
-                        trend_dict[topic["name"]] = topic["url"]
-                    message = "@{} " + "\n".join(
-                        " / ".join(i) for i in trend_dict.items()
-                    )
+                    print("Location Found")
+                    woe_tweet = word[19:]
+                    message = Search(api).geotag(woe_tweet)
+                    # woe_id = LocationNumber(woe_tweet).get_location()
+                    # location_trend = api.get_place_trends(woe_id)
+                    # trend_dict = {}
+                    # for topic in location_trend[0]["trends"][:tweet_count]:
+                    #     trend_dict[topic["name"]] = topic["url"]
+                    # message = "@{} " + "\n".join(
+                    #     " / ".join(i) for i in trend_dict.items()
+                    # )
                     api.update_status(
                         message.format(tag.author.screen_name),
                         in_reply_to_status_id=tag.id_str,
