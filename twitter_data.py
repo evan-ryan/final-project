@@ -18,6 +18,7 @@ class Auth:
     """
     Class that uses Twitter api credentials to authenticate to the api
     """
+
     def __init__(self, api_key, api_secret, access_token, access_secret):
         """
         Class Constructor to set class credentials as class attributes
@@ -45,6 +46,7 @@ class LocationNumber:
     """
     Class for getting the WhereOnEarthID for a location
     """
+
     def __init__(self, location):
         """
         Class constructor which sets a location to a class attribute
@@ -74,6 +76,7 @@ class UrlMaker:
     """
     Class for creating a list of URLs and shortening them
     """
+
     def __init__(self, id_list):
         """
         Class constructor which sets id_list as class attribute
@@ -113,6 +116,7 @@ class Search:
     """
     Class for Searching Twitter
     """
+
     def __init__(self, auth):
         """
         Class constructor for authenticating the search
