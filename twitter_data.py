@@ -72,62 +72,83 @@ class Search:
             message = "@{} " + woe_id
         return message
 
+    def keyword(self, phrase):
+        keyword_search = tweepy.Cursor(
+            self.api.search_tweets,
+            q=phrase,
+            tweet_mode="extended",
+            result_type="popular",
+        ).items(tweet_count)
+        cursor = keyword_search
+        for i in cursor:
+            ids.append(i.id)
+        url_list = UrlMaker(ids).create()
+        short_links_list = UrlMaker(url_list).shorten()
+        key_word_message = "@{} " + " \n".join(short_links_list)
+        return key_word_message
+
+
 
 api = Auth(api_key, api_secret, access_token, access_secret).init()
 
 program_id = int(api.verify_credentials().id_str)
-ids = []
 tag_id = 1
-while True:
-    mentions = api.mentions_timeline(since_id=tag_id)
-    for tag in mentions:
-        print("Tweet Found")
-        print(f"{tag.author.screen_name} - {tag.text}")
-        tag_id = tag.id
-        if tag.in_reply_to_status_id is None and tag.author.id != program_id:
-            try:
-                api = Auth(api_key, api_secret, access_token, access_secret).init()
-                tweet_count = 2
-                word = str(tag.text)
-                if "Location:" in word:
-                    print("Searching for Trends in Location")
-                    woe_tweet = word[19:]
-                    message = Search(api).geotag(woe_tweet)
-                    # woe_id = LocationNumber(woe_tweet).get_location()
-                    # location_trend = api.get_place_trends(woe_id)
-                    # trend_dict = {}
-                    # for topic in location_trend[0]["trends"][:tweet_count]:
-                    #     trend_dict[topic["name"]] = topic["url"]
-                    # message = "@{} " + "\n".join(
-                    #     " / ".join(i) for i in trend_dict.items()
-                    # )
-                    api.update_status(
-                        message.format(tag.author.screen_name),
-                        in_reply_to_status_id=tag.id_str,
-                    )
+def main():
+    while True:
+        mentions = api.mentions_timeline(since_id=tag_id)
+        for tag in mentions:
+            print("Tweet Found")
+            print(f"{tag.author.screen_name} - {tag.text}")
+            tag_id = tag.id
+            if tag.in_reply_to_status_id is None and tag.author.id != program_id:
+                try:
+                    api = Auth(api_key, api_secret, access_token, access_secret).init()
+                    tweet_count = 2
+                    word = str(tag.text)
+                    if "Location:" in word:
+                        print("Searching for Trends in Location")
+                        woe_tweet = word[19:]
+                        message = Search(api).geotag(woe_tweet)
+                        # woe_id = LocationNumber(woe_tweet).get_location()
+                        # location_trend = api.get_place_trends(woe_id)
+                        # trend_dict = {}
+                        # for topic in location_trend[0]["trends"][:tweet_count]:
+                        #     trend_dict[topic["name"]] = topic["url"]
+                        # message = "@{} " + "\n".join(
+                        #     " / ".join(i) for i in trend_dict.items()
+                        # )
+                        api.update_status(
+                            message.format(tag.author.screen_name),
+                            in_reply_to_status_id=tag.id_str,
+                        )
 
-                else:
-                    tweet_count = 10
-                    word_slice = word[9:]
-                    keyword_search = tweepy.Cursor(
-                        api.search_tweets,
-                        q=word_slice,
-                        tweet_mode="extended",
-                        result_type="popular",
-                    ).items(tweet_count)
-                    cursor = keyword_search
-
-                    for i in cursor:
-                        ids.append(i.id)
-                    url_list = UrlMaker(ids).create()
-                    short_links_list = UrlMaker(url_list).shorten()
-                    message = "@{} " + " \n".join(short_links_list)
-                    print(message)
-                    api.update_status(
-                        message.format(tag.author.screen_name),
-                        in_reply_to_status_id=tag.id_str,
-                    )
-            except Exception as exc:
-                print(exc)
+                    else:
+                        ids = []
+                        tweet_count = 10
+                        word_slice = word[9:]
+                        # keyword_search = tweepy.Cursor(
+                        #     api.search_tweets,
+                        #     q=word_slice,
+                        #     tweet_mode="extended",
+                        #     result_type="popular",
+                        # ).items(tweet_count)
+                        # cursor = keyword_search
+                        #
+                        # for i in cursor:
+                        #     ids.append(i.id)
+                        # url_list = UrlMaker(ids).create()
+                        # short_links_list = UrlMaker(url_list).shorten()
+                        # message = "@{} " + " \n".join(short_links_list)
+                        # print(message)
+                        message = Search(api).keyword(word_slice)
+                        api.update_status(
+                            message.format(tag.author.screen_name),
+                            in_reply_to_status_id=tag.id_str,
+                        )
+                except Exception as exc:
+                    print(exc)
 
     time.sleep(10)
+
+if __name__ == "__main__":
+    main()
