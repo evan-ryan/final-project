@@ -32,9 +32,12 @@ class LocationNumber:
         for k in trend_locations:
             if k == self.location:
                 woe_id = trend_locations[k]
-            else:
-                woe_id = "Sorry Location Not Found"
+
         return woe_id
+
+# woe_obj = LocationNumber("Boston").get_location()
+# print(woe_obj)
+
 
 class UrlMaker:
     def __init__(self, id_list):
@@ -66,6 +69,16 @@ while True:
                 word = str(tag.text)
                 if 'Location:' in word:
                     print('location found')
+                    word_slice = word[19:]
+                    woe_id = LocationNumber(word_slice).get_location()
+                    location_trend = api.get_place_trends(woe_id)
+                    trend_dict = {}
+                    trend_url_list = []
+                    for topic in location_trend[0]["trends"][:tweet_count]:
+                        trend_dict[topic["name"]] = topic['url']
+                    message = '\n'.join(' / '.join(i) for i in trend_dict.items())
+                    print(message)
+
                 else:
                     word_slice = word[9:]
 
