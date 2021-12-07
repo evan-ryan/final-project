@@ -76,8 +76,8 @@ while True:
                     trend_url_list = []
                     for topic in location_trend[0]["trends"][:tweet_count]:
                         trend_dict[topic["name"]] = topic['url']
-                    message = '\n'.join(' / '.join(i) for i in trend_dict.items())
-                    print(message)
+                    message = '@{} ' + '\n'.join(' / '.join(i) for i in trend_dict.items())
+                    api.update_status(message.format(tag.author.screen_name), in_reply_to_status_id=tag.id_str)
 
                 else:
                     word_slice = word[9:]
