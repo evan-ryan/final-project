@@ -1,17 +1,25 @@
 from twitter_api import api_key
-
 from twitter_api import api_key
 from twitter_api import api_secret
 from twitter_api import access_token
 from twitter_api import access_secret
-
 import tweepy
 import time
 import pyshorteners
 
-auth = tweepy.OAuthHandler(api_key, api_secret)
-auth.set_access_token(access_token, access_secret)
-api = tweepy.API(auth, wait_on_rate_limit=True)
+
+class Auth:
+    def __init__(self, api_key, api_secret, access_token, access_secret):
+        self.api_key = api_key
+        self.api_secret = api_secret
+        self.access_token = access_token
+        self.access_secret = access_secret
+
+    def init(self):
+        auth = tweepy.OAuthHandler(self.api_key, self.api_secret)
+        auth.set_access_token(self.access_token, self.access_secret)
+        api = tweepy.API(auth, wait_on_rate_limit=True)
+        return api
 
 
 class LocationNumber:
@@ -47,7 +55,11 @@ class UrlMaker:
             short_list.append(shortener.tinyurl.short(i))
         return short_list
 
+class Reply:
+    def __init__(self):
 
+auth = Auth(api_key, api_secret, access_token, access_secret)
+api = auth.init()
 program_id = int(api.verify_credentials().id_str)
 ids = []
 tag_id = 1
@@ -59,9 +71,8 @@ while True:
         tag_id = tag.id
         if tag.in_reply_to_status_id is None and tag.author.id != program_id:
             try:
-                auth = tweepy.OAuthHandler(api_key, api_secret)
-                auth.set_access_token(access_token, access_secret)
-                api = tweepy.API(auth, wait_on_rate_limit=True)
+                auth = Auth(api_key, api_secret, access_token, access_secret)
+                api = auth.init()
                 tweet_count = 2
                 word = str(tag.text)
                 if "Location:" in word:
