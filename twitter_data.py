@@ -71,16 +71,37 @@ class LocationNumber:
 
 
 class UrlMaker:
+    """
+    Class for creating a list of URLs and shortening them
+    """
     def __init__(self, id_list):
+        """
+        Class constructor which sets id_list as class attribute
+        Input: id_list
+            id_list: list of integers
+        Output: None
+        """
         self.id_list = id_list
 
     def create(self):
+        """
+        Class method to creat list of URLs
+        Input: self / class attribute: list of integers
+        Output: url_list
+            url_list: List of URL strings
+        """
         url_list = []
         for item in self.id_list:
             url_list.append("https://twitter.com/twitter/statuses/" + str(item))
         return url_list
 
     def shorten(self):
+        """
+        Class method for shortening URLS
+        Input: self / class attribute: list of integers
+        Output: short_list
+            short_list: List of shortened URL strings
+        """
         shortener = pyshorteners.Shortener()
         short_list = []
         for i in self.id_list:
@@ -89,10 +110,23 @@ class UrlMaker:
 
 
 class Search:
+    """
+    Class for Searching Twitter
+    """
     def __init__(self, auth):
+        """
+        Class constructor for authenticating the search
+        Input: API object
+        Output: None
+        """
         self.api = auth
 
     def geotag(self, woe):
+        """
+        Class method for searching by location
+        Input: WhereOnEarthID
+        Output: Formatted string to be sent to Twitter
+        """
         woe_id = LocationNumber(woe).get_location()
         if isinstance(woe_id, int):
             location_trend = self.api.get_place_trends(woe_id)
@@ -105,6 +139,11 @@ class Search:
         return message
 
     def keyword(self, phrase):
+        """
+        Class method for searching by location
+        Input: keyword to search for
+        Output: Formatted string to be sent to Twitter
+        """
         keyword_search = tweepy.Cursor(
             self.api.search_tweets,
             q=phrase,
@@ -127,6 +166,9 @@ tag_id = 1
 
 
 def main():
+    """
+    Main function to run the code loop
+    """
     while True:
         mentions = api.mentions_timeline(since_id=tag_id)
         for tag in mentions:
