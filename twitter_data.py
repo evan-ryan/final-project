@@ -188,14 +188,6 @@ def main():
                         print("Searching for Trends in Location")
                         woe_tweet = word[19:]
                         message = Search(api).geotag(woe_tweet)
-                        # woe_id = LocationNumber(woe_tweet).get_location()
-                        # location_trend = api.get_place_trends(woe_id)
-                        # trend_dict = {}
-                        # for topic in location_trend[0]["trends"][:tweet_count]:
-                        #     trend_dict[topic["name"]] = topic["url"]
-                        # message = "@{} " + "\n".join(
-                        #     " / ".join(i) for i in trend_dict.items()
-                        # )
                         api.update_status(
                             message.format(tag.author.screen_name),
                             in_reply_to_status_id=tag.id_str,
@@ -205,20 +197,6 @@ def main():
                         ids = []
                         tweet_count = 10
                         word_slice = word[9:]
-                        # keyword_search = tweepy.Cursor(
-                        #     api.search_tweets,
-                        #     q=word_slice,
-                        #     tweet_mode="extended",
-                        #     result_type="popular",
-                        # ).items(tweet_count)
-                        # cursor = keyword_search
-                        #
-                        # for i in cursor:
-                        #     ids.append(i.id)
-                        # url_list = UrlMaker(ids).create()
-                        # short_links_list = UrlMaker(url_list).shorten()
-                        # message = "@{} " + " \n".join(short_links_list)
-                        # print(message)
                         message = Search(api).keyword(word_slice)
                         api.update_status(
                             message.format(tag.author.screen_name),
