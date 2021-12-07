@@ -17,6 +17,11 @@ class TestAuth(unittest.TestCase):
         arr_obj = UrlMaker(ids).create()
         print(arr_obj)
 
+    def test_url_shorten(self):
+        ids = [1234, 567, 7890]
+        arr_obj = UrlMaker(ids).shorten()
+        print(arr_obj)
+
 
 if __name__ == '__main__':
     unittest.main()

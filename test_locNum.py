@@ -13,8 +13,8 @@ class TestAuth(unittest.TestCase):
     Test cases for Auth class
     """
     def test_locNum(self):
-        ids = [234, 5456, 78908]
-        arr_obj = LocationNumber(ids).create()
+        ids = ['Boston', 'Manchester', 'Dallas']
+        arr_obj = LocationNumber(ids).get_location()
         print(arr_obj)
 
 
