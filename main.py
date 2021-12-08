@@ -47,7 +47,7 @@ def main():
                 except Exception as exc:
                     print(exc)
 
-            time.sleep(10)
+        time.sleep(10)
 
 
 if __name__ == "__main__":

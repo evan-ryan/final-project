@@ -1,34 +1,26 @@
-# Foobar
+# EZC Search
 
-Foobar is a Python library for dealing with word pluralization.
+EZC Search is a twitter automation bot, that uses a python backend to interact 
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [GitHub](https://github.com/evan-ryan/final-project) using the following command:
 
 ```bash
-pip install foobar
+git clone https://github.com/evan-ryan/final-project.git
 ```
 
 ## Usage
+* Import your own Twitter API credentials into a seprate file called `twitter_api.py`
+* We also recommend you at this fit to your own `.gitignore`
 
+From there simple run the follow command:
 ```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+python main.py
 ```
-
+Congrats you very own Twitter bot is up and running!
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Closed at this time
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+By Evan, Zack, and Cuba

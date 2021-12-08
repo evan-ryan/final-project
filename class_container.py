@@ -22,6 +22,9 @@ class Auth:
         return api
 
 
+api = Auth(api_key, api_secret, access_token, access_secret).init()
+
+
 class LocationNumber:
     def __init__(self, location):
         self.location = location
